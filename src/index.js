@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import store from './redux/store';
 
 import './index.css';
 import App from './App';
 
+
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  /*
+    The provider is a component class we get from redux that once passed the store 
+    object will be able to give that redux store context to the rest of the application
+    so we can dispatch actions to that store or we can pull value off the store 
+    into our components.
+  */
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );

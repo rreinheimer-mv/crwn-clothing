@@ -1,8 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {ReactComponent as Logo } from '../../assets/crown-logo.svg';
-
 import {auth} from '../../firebase/firebase.utils';
+
+/*
+ * Connect is a higher order component that lets
+ * us modify our component to have access to things 
+ * related to redux.
+ * Higher order components are just funtions that take components
+ * as arguments and returns enhanced component.
+ */
+import { connect } from 'react-redux';
+
+import {ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
 import './header.styles.scss';
 
@@ -30,4 +39,8 @@ const Header = ({ currentUser }) => (
     </div>
 );
 
-export default Header;
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Header);
