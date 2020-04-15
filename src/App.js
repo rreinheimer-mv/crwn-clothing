@@ -71,6 +71,23 @@ const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
+/*
+ * connect() as the glue or interface between the component and the store.
+ *
+ * mapStateToProps:
+ * Pulls in the state of a specific reducer state object 
+ * from you global store and maps it to the props of your component. 
+ * MapStateToProps is called everytime your store is updated. 
+ * You pass in your state a retrieve that specific objects from the reducer.
+ *
+ * mapDispatchToProps
+ * Takes the dispatch functions in your component and executes them against the Redux Reducer when that function is fired.
+ * This function directs the dispatching or sending of an action by pointing it to 
+ * an action creator. The action creator is made available to the component as a prop, 
+ * which is usually tied to an event handler function contained in the component (
+ * see setCurrentUser in the code).
+ * 
+ */
 export default connect(
   mapStateToProps,
   mapDispatchToProps
