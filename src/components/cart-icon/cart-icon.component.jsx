@@ -2,17 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 
 import './cart-icon.styles.scss';
 
-const CartIcon = ({ toggleCartHidden }) => (
+const CartIcon = ({ toggleCartHidden, itemCount }) => (
     <div className='cart-icon' onClick={toggleCartHidden}>
         <ShoppingIcon className='shopping-icon' />
-        <span className='item-count'>0</span>
+        <span className='item-count'>{itemCount}</span>
     </div>
 );
+
+/*
+ * Introduction to selectors, example selectCartItemsCount:
+ * Passing the whole reducer state into the selectCartItemsCount selector 
+ * which references selectCartItems, which references selectCart.
+ * The whole reducer state reaches selectCart which gets the cart object and 
+ * returns cart object into the cart function (in selectCartItems) which parses 
+ * the cartItems object and returns the cartItems objects into the cartItems 
+ * function (in selectCartItemsCount) which perform reduce() js array method
+ * and gets the total count. The itemCount is than passed as prop into the 
+ * CartIcon component.
+ */
+const mapStateToProps = state => ({
+    itemCount: selectCartItemsCount(state)
+});
 
 const mapDispatchToProps = dispatch => ({
     toggleCartHidden: () => dispatch(toggleCartHidden())
@@ -30,6 +46,6 @@ const mapDispatchToProps = dispatch => ({
  * 
  */
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(CartIcon);
