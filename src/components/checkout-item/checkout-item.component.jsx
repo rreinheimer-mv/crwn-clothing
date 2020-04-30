@@ -3,28 +3,36 @@ import { connect } from 'react-redux';
 
 import { clearItemFromCart,addItem, removeItem } from '../../redux/cart/cart.actions';
 
-import './checkout-item.styles.scss';
+import { 
+    CheckoutItemContainer,
+    ImageContainer,
+    TextContainer,
+    QuantityContainer,
+    RemoveButtonContainer
+} from './checkout-item.styles';
 
 const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
     const {name, imageUrl, price, quantity } = cartItem;
-    return (<div className='checkout-item'>
-        <div className='image-container'>
+    return (<CheckoutItemContainer>
+        <ImageContainer>
             <img src={imageUrl} alt='item' />
-        </div>
-        <span className='name'>{name}</span>
-        <span className='quantity'>
-            <span className='arrow' onClick=
-            {() => removeItem(cartItem)}>
-                &#10094;</span>
-            <span className='value'>{quantity}</span>
-            <span className='arrow' onClick=
-            {() => addItem(cartItem)}>
-                &#10095;</span>
-        </span>
-        <span className='price'>{price}</span>
-        <div className='remove-button' 
-            onClick={() => clearItem(cartItem)}>&#10005;</div>
-    </div>);
+        </ImageContainer>
+        <TextContainer>{name}</TextContainer>
+        <QuantityContainer>
+            <span onClick=
+                {() => removeItem(cartItem)}>
+                &#10094;
+            </span>
+            <span>{quantity}</span>
+            <span onClick=
+                {() => addItem(cartItem)}>
+                &#10095;
+            </span>
+        </QuantityContainer>
+        <TextContainer>{price}</TextContainer>
+        <RemoveButtonContainer 
+            onClick={() => clearItem(cartItem)}>&#10005;</RemoveButtonContainer>
+    </CheckoutItemContainer>);
 };
 
 const mapDispatchToProps = dispatch => ({
